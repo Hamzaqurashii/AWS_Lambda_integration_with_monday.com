@@ -11,7 +11,7 @@ const hello: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
 ) => {
   let query = `mutation { delete_subscribers_from_board(board_id: ${event.body.boardId}, user_ids: ${event.body.userId}) { id }}`;
 
-  axios({
+  const response = await axios({
     url: "https://api.monday.com/v2",
     headers: {
       "Content-Type": "application/json",
@@ -21,8 +21,10 @@ const hello: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     data: JSON.stringify({
       query: query,
     }),
-  }).then((response) => {
-    console.log("aaaaaa", response.data);
+  });
+  return formatJSONResponse({
+    message: response.data,
+    event,
   });
 };
 

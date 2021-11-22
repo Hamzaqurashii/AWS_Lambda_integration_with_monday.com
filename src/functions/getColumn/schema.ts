@@ -5,5 +5,5 @@ export default {
     baseID: { type: "string" },
     id: { type: "string" },
   },
-  required: ["apiKey"],
+  // required: ["apiKey"],
 } as const;

@@ -5,5 +5,5 @@ export default {
     from: { type: "string" },
     to: { type: "string" },
   },
-  required: ["boardId"],
+  // required: ["boardId"],
 } as const;

@@ -9,9 +9,8 @@ import schema from "./schema";
 const hello: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event
 ) => {
-  let query =
-    `mutation { create_board (board_name: ${event.body.boardName}, board_kind: public) {   id }}`;
-  axios({
+  let query = `mutation { create_board (board_name: ${event.body.boardName}, board_kind: public) {   id }}`;
+  const response = await axios({
     url: "https://api.monday.com/v2",
     headers: {
       "Content-Type": "application/json",
@@ -21,14 +20,12 @@ const hello: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     data: JSON.stringify({
       query: query,
     }),
-  }).then((response) => {
-    console.log(response.data);
-  });
+  })
 
-  // return formatJSONResponse({
-  //   message: `Hello ${event.body.fname}, welcome to the exciting Serverless world!`,
-  //   event,
-  // });
+  return formatJSONResponse({
+    message: response.data,
+    event,
+  });
 };
 
 export const main = middyfy(hello);

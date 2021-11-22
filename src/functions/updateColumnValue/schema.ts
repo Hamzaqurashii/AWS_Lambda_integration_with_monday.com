@@ -6,5 +6,5 @@ export default {
     boardId: { type: "string" },
     columnId: { type: "string" },
   },
-  required: ["boardId"],
+  // required: ["boardId"],
 } as const;

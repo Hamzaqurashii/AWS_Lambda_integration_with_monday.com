@@ -11,7 +11,7 @@ const hello: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
 ) => {
   let query = `query { boards (ids: ${event.body.boardId}) { activity_logs (from: \"${event.body.from} \", to: \"${event.body.to}\") { id event data }}}`;
 
-  axios({
+  const response = await axios({
     url: "https://api.monday.com/v2",
     headers: {
       "Content-Type": "application/json",
@@ -21,8 +21,11 @@ const hello: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     data: JSON.stringify({
       query: query,
     }),
-  }).then((response) => {
-    console.log("aaaaaa", response.data.data.boards[0]);
+  });
+
+  return formatJSONResponse({
+    message: response.data,
+    event,
   });
 };
 

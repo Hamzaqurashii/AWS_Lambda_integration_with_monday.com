@@ -5,5 +5,5 @@ export default {
     userID: { type: "Array" },
 
   },
-  required: ["boardID"],
+  // required: ["boardID"],
 } as const;

@@ -11,7 +11,7 @@ const hello: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
 ) => {
   var query = `mutation {change_simple_column_value (board_id: ${event.body.boardId}, item_id: ${event.body.itemId}, column_id: \"${event.body.columnId}\", value: \"${event.body.value}\") {id}}`;
 
-  axios({
+  const response = await axios({
     url: "https://api.monday.com/v2",
     headers: {
       "Content-Type": "application/json",
@@ -21,8 +21,11 @@ const hello: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     data: JSON.stringify({
       query: query,
     }),
-  }).then((response) => {
-    console.log("aaaaaa", response.data);
+  });
+
+  return formatJSONResponse({
+    message: response.data,
+    event,
   });
 };
 

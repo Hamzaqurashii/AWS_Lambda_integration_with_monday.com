@@ -3,5 +3,5 @@ export default {
   properties: {
     boardId: { type: "string" },
   },
-  required: ["boardId"],
+  // required: ["boardId"],
 } as const;

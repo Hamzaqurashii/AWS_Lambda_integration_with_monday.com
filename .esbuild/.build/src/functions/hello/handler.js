@@ -504,7 +504,7 @@ var hello = async (event) => {
     region: "eu-west-2",
     endpoint: "http://localhost:8000"
   });
-  const data = await dynamo.delete({ TableName: "myTable", Key: { name: event.body.name } }).promise();
+  const response = await dynamo.delete({ TableName: "myTable", Key: { name: event.body.name } }).promise();
   console.log(data);
   return formatJSONResponse({
     message: `Hello ${event.body.name}, welcome to the exciting Serverless world!`,
